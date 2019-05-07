@@ -3,7 +3,7 @@
 [![works badge](https://cdn.rawgit.com/nikku/works-on-my-machine/v0.2.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
 [![Build Status](https://travis-ci.org/mgrzeszczak/rx-udp.png)](https://travis-ci.org/mgrzeszczak/rx-udp)
 [![codecov](https://codecov.io/gh/mgrzeszczak/rx-udp/branch/master/graph/badge.svg)](https://codecov.io/gh/mgrzeszczak/rx-udp)
-[![](https://jitpack.io/v/mgrzeszczak/rx-udp.svg)](https://jitpack.io/#mgrzeszczak/rx-udp)
+[![](https://jitpack.io/v/pcbmaster/rx-udp.svg)](https://jitpack.io/#pcbmaster/rx-udp)
 
 DatagramChannel wrapped in RxJava.
 
@@ -99,6 +99,7 @@ rxUdpNode.close().subscribe(() -> System.out.println("Closed!"));
 MIT License
 
 Copyright (c) 2017 Maciej Grzeszczak
+Copyright (c) 2019 Brett Monty
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
