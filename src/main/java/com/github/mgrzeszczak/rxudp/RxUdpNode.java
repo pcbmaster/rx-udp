@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,11 +23,10 @@ import io.reactivex.Emitter;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 public class RxUdpNode {
 
+    private static final String LOG_TAG = "rx-udp";
     private static final int MAX_SIZE = 65507;
 
     private final DatagramChannel channel;
@@ -90,7 +90,7 @@ public class RxUdpNode {
         try {
             channel.close();
         } catch (Exception e) {
-            log.warn("error closing channel", e);
+            java.util.logging.Logger.getLogger(LOG_TAG).log(Level.WARNING, "error closing channel: " + e.getMessage());
         }
     }
 
@@ -112,7 +112,7 @@ public class RxUdpNode {
                 }
             }
         } catch (Exception ex) {
-            log.error(ex);
+            java.util.logging.Logger.getLogger(LOG_TAG).log(Level.SEVERE, ex.getMessage());
             synchronized (subscribers) {
                 subscribers.forEach(e -> e.onError(new RxUdpException("processing exception", ex)));
             }
@@ -167,7 +167,7 @@ public class RxUdpNode {
             try {
                 channel = DatagramChannel.open(protocolFamily);
             } catch (Exception e) {
-                log.error("failed to open datagram channel", e);
+                java.util.logging.Logger.getLogger(LOG_TAG).log(Level.SEVERE, "failed to open datagram channel " + e.getMessage());
                 throw new RxUdpException("failed to open datagram channel", e);
             }
 
@@ -175,7 +175,7 @@ public class RxUdpNode {
                 try {
                     channel.bind(address);
                 } catch (Exception e) {
-                    log.error("failed to bind to address {}", address, e);
+                    java.util.logging.Logger.getLogger(LOG_TAG).log(Level.SEVERE, "failed to bind to address " + e.getMessage());
                     closeSilently(channel);
                     throw new RxUdpException("failed to bind to address", e);
                 }
@@ -185,7 +185,7 @@ public class RxUdpNode {
                 try {
                     channel.setOption(entry.getKey(), entry.getValue());
                 } catch (Exception e) {
-                    log.error("failed to set socket option {} to value", entry.getKey(), entry.getValue(), address, e);
+                    java.util.logging.Logger.getLogger(LOG_TAG).log(Level.SEVERE, String.format("failed to set socket option %s to value %s %s %s", entry.getKey(), entry.getValue(), address, e.getMessage()));
                     closeSilently(channel);
                     throw new RxUdpException("failed to set socket option", e);
                 }
