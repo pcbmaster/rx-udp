@@ -17,8 +17,6 @@ jacocoTestReport {
 
 dependencies {
     compileOnly "org.projectlombok:lombok:${lombok_version}"
-    implementation "org.apache.logging.log4j:log4j-core:${log4j2_version}"
-    implementation "org.apache.logging.log4j:log4j-api:${log4j2_version}"
     implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
     implementation "io.reactivex.rxjava2:rxjava:${rxjava_version}"
     testImplementation "org.mockito:mockito-core:${mockito_version}"
